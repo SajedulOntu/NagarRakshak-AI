@@ -1,752 +1,534 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Orbitron:wght@600;800;900&display=swap");
 
 @import "tailwindcss";
 
+/* =========================================================
+   THEME SUPPORT
+========================================================= */
 
+@layer base {
+  .dark,
+  .dark * {
+    color-scheme: dark;
+  }
 
-/* ================= GLOBAL ================= */
-
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+  .light,
+  .light * {
+    color-scheme: light;
+  }
 }
 
+/* =========================================================
+   LIGHT MODE — DEFAULT
+========================================================= */
 
-html{
-  scroll-behavior:smooth;
+:root,
+html.light {
+  color-scheme: light;
+
+  --app-background: #f5f7fb;
+  --app-background-2: #eef2ff;
+
+  --app-surface: #ffffff;
+  --app-surface-2: #f8fafc;
+  --app-surface-soft: rgba(255, 255, 255, 0.78);
+  --app-surface-hover: #f1f5f9;
+
+  --app-text: #172033;
+  --app-text-secondary: #475569;
+  --app-text-muted: #8793a6;
+
+  --app-border: #e5eaf2;
+  --app-border-strong: #d8dfeb;
+
+  --app-input: #f8fafc;
+
+  --sidebar-background: rgba(255, 255, 255, 0.94);
+  --header-background: rgba(255, 255, 255, 0.86);
+
+  /* Main dashboard colors */
+
+  --brand-blue: #5b7cfa;
+  --brand-cyan: #27c4e8;
+  --brand-purple: #8b5cf6;
+  --brand-pink: #ec4899;
+  --brand-orange: #f97316;
+  --brand-yellow: #f59e0b;
+  --brand-green: #22c55e;
+  --brand-red: #ef4444;
+
+  --app-grid: rgba(91, 124, 250, 0.045);
+
+  --scrollbar-track: #edf1f7;
+  --scrollbar-thumb: #b6c0d0;
+
+  --shadow-card:
+    0 12px 35px rgba(55, 65, 81, 0.08),
+    0 2px 8px rgba(55, 65, 81, 0.04);
 }
 
+/* =========================================================
+   DARK MODE
+========================================================= */
 
-body{
+html.dark {
+  color-scheme: dark;
 
-  background:#050816;
+  --app-background: #08101f;
+  --app-background-2: #0b1325;
 
-  color:white;
+  --app-surface: #101827;
+  --app-surface-2: #0c1422;
+  --app-surface-soft: rgba(16, 24, 39, 0.82);
+  --app-surface-hover: #172033;
 
-  font-family:'JetBrains Mono', monospace;
+  --app-text: #f8fafc;
+  --app-text-secondary: #cbd5e1;
+  --app-text-muted: #7c8aa0;
 
-  overflow-x:hidden;
+  --app-border: rgba(255, 255, 255, 0.09);
+  --app-border-strong: rgba(255, 255, 255, 0.14);
 
+  --app-input: rgba(255, 255, 255, 0.045);
+
+  --sidebar-background: rgba(8, 16, 31, 0.94);
+  --header-background: rgba(8, 16, 31, 0.86);
+
+  --brand-blue: #6d8cff;
+  --brand-cyan: #22d3ee;
+  --brand-purple: #a78bfa;
+  --brand-pink: #f472b6;
+  --brand-orange: #fb923c;
+  --brand-yellow: #fbbf24;
+  --brand-green: #34d399;
+  --brand-red: #fb7185;
+
+  --app-grid: rgba(34, 211, 238, 0.04);
+
+  --scrollbar-track: #08101f;
+  --scrollbar-thumb: #334155;
+
+  --shadow-card:
+    0 18px 50px rgba(0, 0, 0, 0.22),
+    0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
+/* =========================================================
+   GLOBAL
+========================================================= */
 
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
+  html {
+    min-height: 100%;
+    background: var(--app-background);
+  }
 
+  body {
+    min-height: 100vh;
 
-/* ================= FONTS ================= */
+    background:
+      radial-gradient(
+        circle at 78% 8%,
+        rgba(139, 92, 246, 0.08),
+        transparent 28%
+      ),
+      radial-gradient(
+        circle at 20% 0%,
+        rgba(39, 196, 232, 0.08),
+        transparent 26%
+      ),
+      var(--app-background);
 
+    color: var(--app-text);
 
-.font-display{
+    font-family:
+      "Inter",
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
 
-font-family:'Orbitron',sans-serif;
+    transition:
+      background-color 0.25s ease,
+      color 0.25s ease;
+  }
 
-letter-spacing:0.05em;
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
 
+  button {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
 }
 
+/* =========================================================
+   TYPOGRAPHY
+========================================================= */
 
-.font-hud{
-
-font-family:'JetBrains Mono',monospace;
-
+.font-display {
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 0.02em;
 }
 
-
-
-
-
-
-
-/* ================= GLASS SYSTEM ================= */
-
-
-.glass-panel{
-
-background:
-
-rgba(255,255,255,0.06);
-
-
-backdrop-filter:
-
-blur(20px);
-
-
-border:
-
-1px solid rgba(255,255,255,0.12);
-
-
-border-radius:24px;
-
-
-box-shadow:
-
-0 20px 50px rgba(0,0,0,0.4);
-
-
+.font-hud {
+  font-family: "JetBrains Mono", monospace;
 }
 
+/* =========================================================
+   APPLICATION HELPERS
+========================================================= */
 
-
-
-
-
-
-/* ================= HUD GRID ================= */
-
-
-.hud-grid-bg{
-
-
-background-image:
-
-linear-gradient(
-rgba(56,189,248,0.08) 1px,
-transparent 1px
-),
-
-
-linear-gradient(
-90deg,
-rgba(56,189,248,0.08) 1px,
-transparent 1px
-);
-
-
-
-background-size:
-
-42px 42px;
-
-
-
-animation:
-
-grid-drift 8s linear infinite;
-
-
+.app-background {
+  background-color: var(--app-background);
+  color: var(--app-text);
 }
 
-
-
-
-@keyframes grid-drift{
-
-
-0%{
-
-background-position:
-0 0;
-
+.app-surface {
+  background: var(--app-surface);
+  color: var(--app-text);
+  border: 1px solid var(--app-border);
+  box-shadow: var(--shadow-card);
 }
 
-
-100%{
-
-background-position:
-42px 42px;
-
+.app-surface-soft {
+  background: var(--app-surface-soft);
+  color: var(--app-text);
+  border: 1px solid var(--app-border);
 }
 
-
+.app-card {
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  box-shadow: var(--shadow-card);
 }
 
-
-
-
-
-
-
-/* ================= LOGIN CARD ================= */
-
-
-.login-card{
-
-
-background:
-
-linear-gradient(
-
-145deg,
-
-rgba(255,255,255,0.08),
-
-rgba(255,255,255,0.02)
-
-);
-
-
-
-backdrop-filter:
-
-blur(25px);
-
-
-
-border:
-
-1px solid rgba(255,255,255,0.15);
-
-
-
-border-radius:28px;
-
-
-
-box-shadow:
-
-
-0 0 50px rgba(34,211,238,0.15);
-
-
+.app-card-soft {
+  background: var(--app-surface-2);
+  border: 1px solid var(--app-border);
 }
 
-
-
-
-
-
-
-
-
-/* ================= ROLE CARDS ================= */
-
-
-
-.role-card{
-
-
-height:100px;
-
-
-border-radius:18px;
-
-
-
-background:
-
-rgba(255,255,255,0.04);
-
-
-
-border:
-
-1px solid rgba(255,255,255,0.12);
-
-
-
-display:flex;
-
-
-flex-direction:column;
-
-
-justify-content:center;
-
-
-align-items:center;
-
-
-
-gap:6px;
-
-
-
-transition:
-
-all .3s ease;
-
-
+.app-text {
+  color: var(--app-text);
 }
 
-
-
-
-
-.role-card:hover{
-
-
-transform:
-
-translateY(-5px);
-
-
-background:
-
-rgba(255,255,255,0.1);
-
-
-
+.app-text-secondary {
+  color: var(--app-text-secondary);
 }
 
-
-
-
-.role-card-active{
-
-
-box-shadow:
-
-0 0 30px rgba(34,211,238,.35);
-
-
-border-color:
-
-#22d3ee;
-
-
+.app-text-muted {
+  color: var(--app-text-muted);
 }
 
-
-
-
-
-
-
-/* ================= INPUTS ================= */
-
-
-
-.input-box{
-
-
-height:58px;
-
-
-width:100%;
-
-
-
-background:
-
-rgba(0,0,0,0.35);
-
-
-
-border:
-
-1px solid rgba(255,255,255,0.15);
-
-
-
-border-radius:16px;
-
-
-
-padding-left:52px;
-
-
-padding-right:45px;
-
-
-
-color:white;
-
-
-font-size:15px;
-
-
-
-outline:none;
-
-
-
-transition:
-
-all .3s ease;
-
-
+.app-border {
+  border-color: var(--app-border);
 }
 
-
-
-.input-box::placeholder{
-
-
-color:
-
-#64748b;
-
-
+.app-input {
+  background: var(--app-input);
+  border: 1px solid var(--app-border);
+  color: var(--app-text);
 }
 
-
-
-
-.input-box:focus{
-
-
-border-color:
-
-#22d3ee;
-
-
-box-shadow:
-
-
-0 0 20px rgba(34,211,238,.25);
-
-
+.app-input::placeholder {
+  color: var(--app-text-muted);
 }
 
+/* =========================================================
+   COLORFUL CARDS
+========================================================= */
 
-
-
-
-
-
-/* ================= BUTTON ================= */
-
-
-.cyber-button{
-
-
-height:55px;
-
-
-width:100%;
-
-
-border-radius:16px;
-
-
-
-font-family:'Orbitron';
-
-
-
-font-weight:800;
-
-
-
-letter-spacing:.08em;
-
-
-
-transition:
-
-all .3s ease;
-
-
+.card-blue {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(91, 124, 250, 0.13),
+      rgba(91, 124, 250, 0.03)
+    ),
+    var(--app-surface);
 }
 
-
-
-
-.cyber-button:hover{
-
-
-transform:
-
-scale(1.03);
-
-
-
-box-shadow:
-
-0 0 35px rgba(255,59,92,.7);
-
-
+.card-purple {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(139, 92, 246, 0.14),
+      rgba(139, 92, 246, 0.03)
+    ),
+    var(--app-surface);
 }
 
-
-
-
-
-
-
-
-/* ================= AI SCANNER ================= */
-
-
-@keyframes scanning{
-
-
-0%{
-
-transform:
-
-translateX(-120%);
-
+.card-orange {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(249, 115, 22, 0.14),
+      rgba(249, 115, 22, 0.03)
+    ),
+    var(--app-surface);
 }
 
-
-100%{
-
-transform:
-
-translateX(220%);
-
+.card-green {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(34, 197, 94, 0.14),
+      rgba(34, 197, 94, 0.03)
+    ),
+    var(--app-surface);
 }
 
-
+.card-pink {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(236, 72, 153, 0.13),
+      rgba(236, 72, 153, 0.03)
+    ),
+    var(--app-surface);
 }
 
+/* =========================================================
+   LIGHT MODE FIXES FOR OLD DARK CLASSES
+========================================================= */
 
-
-.ai-scan{
-
-
-position:relative;
-
-overflow:hidden;
-
-
+html.light .text-white {
+  color: var(--app-text);
 }
 
-
-
-.ai-scan::after{
-
-
-content:"";
-
-
-position:absolute;
-
-
-top:0;
-
-left:0;
-
-
-height:100%;
-
-
-width:40%;
-
-
-
-background:
-
-linear-gradient(
-
-90deg,
-
-transparent,
-
-rgba(34,211,238,.4),
-
-transparent
-
-);
-
-
-
-animation:
-
-scanning 2.5s infinite;
-
-
+html.light .text-gray-200 {
+  color: #283548;
 }
 
-
-
-
-
-
-
-
-/* ================= SCANLINE LOGIN ================= */
-
-
-@keyframes scan-sweep{
-
-
-0%{
-
-transform:translateY(-100%);
-
-opacity:0;
-
+html.light .text-gray-300 {
+  color: #40506a;
 }
 
-
-20%{
-
-opacity:.8;
-
+html.light .text-gray-400 {
+  color: #66748b;
 }
 
-
-100%{
-
-transform:translateY(200%);
-
-opacity:0;
-
+html.light .text-gray-500 {
+  color: #8793a6;
 }
 
-
+html.light .text-gray-600 {
+  color: #94a3b8;
 }
 
+/* Borders */
 
-
-
-
-
-
-
-/* ================= SYSTEM STATUS ================= */
-
-
-@keyframes pulse-dot{
-
-
-0%,100%{
-
-
-opacity:1;
-
-
-box-shadow:
-
-0 0 0 0 currentColor;
-
-
+html.light .border-white\/15,
+html.light .border-white\/10,
+html.light .border-white\/5 {
+  border-color: var(--app-border);
 }
 
+/* Old translucent cards */
 
-
-50%{
-
-
-opacity:.5;
-
-
-
-box-shadow:
-
-0 0 0 8px transparent;
-
-
+html.light .bg-white\/\[0\.05\],
+html.light .bg-white\/\[0\.04\],
+html.light .bg-white\/\[0\.03\] {
+  background-color: rgba(255, 255, 255, 0.94);
 }
 
+/* Old black panels */
 
+html.light .bg-black\/40,
+html.light .bg-black\/30,
+html.light .bg-black\/20 {
+  background-color: #f8fafc;
 }
 
+/* Old slate cards */
 
-
-.animate-pulse-dot{
-
-
-animation:
-
-pulse-dot 1.8s infinite;
-
-
+html.light .bg-slate-950\/95,
+html.light .bg-slate-950\/90,
+html.light .bg-slate-950\/85,
+html.light .bg-slate-950\/80 {
+  background-color: rgba(255, 255, 255, 0.96);
 }
 
+/* Old main background */
 
-
-
-
-
-
-
-/* ================= DASHBOARD CARDS ================= */
-
-
-.dashboard-card{
-
-
-background:
-
-rgba(255,255,255,.05);
-
-
-
-border:
-
-1px solid rgba(255,255,255,.1);
-
-
-
-border-radius:22px;
-
-
-
-backdrop-filter:
-
-blur(18px);
-
-
-
-transition:
-
-.3s;
-
-
+html.light .bg-\[\#020617\] {
+  background-color: var(--app-background);
 }
 
+/* Old sidebar */
 
-
-.dashboard-card:hover{
-
-
-transform:
-
-translateY(-6px);
-
-
-
-border-color:
-
-rgba(34,211,238,.5);
-
-
+html.light .bg-\[\#050b18\]\/95,
+html.light .bg-\[\#050b18\]\/85 {
+  background-color: rgba(255, 255, 255, 0.94);
 }
 
+/* =========================================================
+   FORMS
+========================================================= */
 
-
-
-
-
-
-
-/* ================= SCROLLBAR ================= */
-
-
-
-::-webkit-scrollbar{
-
-
-width:8px;
-
-
+html.light input,
+html.light select,
+html.light textarea {
+  background-color: #f8fafc;
+  border-color: var(--app-border);
+  color: #172033;
 }
 
-
-
-::-webkit-scrollbar-track{
-
-
-background:#020617;
-
-
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: #9aa5b5;
 }
 
+html.light select option {
+  background-color: #ffffff;
+  color: #172033;
+}
 
+/* =========================================================
+   VIDEO / DRONE FEED
+========================================================= */
 
-::-webkit-scrollbar-thumb{
+/*
+   Drone video should remain dark even when the
+   surrounding dashboard is in light mode.
+*/
 
+.media-surface {
+  background: #0b1220;
+  color: #ffffff;
+}
 
-background:
+html.light .media-surface {
+  background: #0b1220 !important;
+  color: #ffffff !important;
+}
 
-linear-gradient(
+html.light .media-surface * {
+  color-scheme: dark;
+}
 
-#22d3ee,
+/* =========================================================
+   HUD GRID
+========================================================= */
 
-#0891b2
+.hud-grid-bg {
+  background-color: var(--app-background);
 
-);
+  background-image:
+    linear-gradient(
+      var(--app-grid) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      var(--app-grid) 1px,
+      transparent 1px
+    );
 
+  background-size: 44px 44px;
+}
 
+/* =========================================================
+   ANIMATIONS
+========================================================= */
 
-border-radius:10px;
+@keyframes grid-drift {
+  0% {
+    background-position: 0 0;
+  }
 
+  100% {
+    background-position: 42px 42px;
+  }
+}
 
+@keyframes scan-sweep {
+  0% {
+    transform: translateY(-10%);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.9;
+  }
+
+  85% {
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translateY(110%);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 currentColor;
+  }
+
+  50% {
+    opacity: 0.5;
+    box-shadow: 0 0 0 6px transparent;
+  }
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-blue);
+}
+
+/* =========================================================
+   LEAFLET MAP
+========================================================= */
+
+html.dark .leaflet-container {
+  background: #07111f;
+}
+
+html.light .leaflet-container {
+  background: #eaf0f8;
+}
+
+html.light .leaflet-popup-content-wrapper,
+html.light .leaflet-popup-tip {
+  background: #ffffff;
+  color: #172033;
 }

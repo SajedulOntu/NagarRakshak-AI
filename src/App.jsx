@@ -1,155 +1,248 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+﻿import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
 
+import ProtectedRoute from "./component/ProtectedRoute.jsx";
+import { USER_ROLES } from "./utils/auth.js";
 
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+import Admin from "./pages/Admin.jsx";
+import DnccNorth from "./pages/DnccNorth.jsx";
+import DnccSouth from "./pages/DnccSouth.jsx";
+import Maintenance from "./pages/Maintenance.jsx";
+import Drone from "./pages/Drone.jsx";
+import AI from "./pages/AI.jsx";
+import MapPage from "./pages/Map.jsx";
+import Alerts from "./pages/Alerts.jsx";
+import Teams from "./pages/Teams.jsx";
+import Reports from "./pages/Reports.jsx";
+import Settings from "./pages/Settings.jsx";
 
+const ALL_ROLES = [
+  USER_ROLES.SUPER_ADMIN,
+  USER_ROLES.DNCC_NORTH,
+  USER_ROLES.DNCC_SOUTH,
+  USER_ROLES.MAINTENANCE,
+];
 
-import Admin from "./pages/Admin";
-import Dncc from "./pages/Dncc";
-import Wasa from "./pages/Wasa";
-import Maintenance from "./pages/Maintenance";
-
-
-import Drone from "./pages/Drone";
-import AI from "./pages/AI";
-import Map from "./pages/Map";
-import Alerts from "./pages/Alerts";
-import Teams from "./pages/Teams";
-import Reports from "./pages/Reports";
-import Settings from "./pages/Settings";
-
-
+const AUTHORITY_ROLES = [
+  USER_ROLES.SUPER_ADMIN,
+  USER_ROLES.DNCC_NORTH,
+  USER_ROLES.DNCC_SOUTH,
+];
 
 function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* Public routes */}
+        <Route
+          path="/"
+          element={<Navigate to="/login" replace />}
+        />
 
+        <Route
+          path="/login"
+          element={<Login />}
+        />
 
-return (
+        <Route
+          path="/register"
+          element={<Register />}
+        />
 
-<BrowserRouter>
+        {/* Main dashboards */}
+        <Route
+          path="/dashboard/super-admin"
+          element={
+            <ProtectedRoute
+              allowedRoles={[
+                USER_ROLES.SUPER_ADMIN,
+              ]}
+            >
+              <Admin />
+            </ProtectedRoute>
+          }
+        />
 
+        <Route
+          path="/dashboard/dncc-north"
+          element={
+            <ProtectedRoute
+              allowedRoles={[
+                USER_ROLES.DNCC_NORTH,
+              ]}
+            >
+              <DnccNorth />
+            </ProtectedRoute>
+          }
+        />
 
-<Routes>
+        <Route
+          path="/dashboard/dncc-south"
+          element={
+            <ProtectedRoute
+              allowedRoles={[
+                USER_ROLES.DNCC_SOUTH,
+              ]}
+            >
+              <DnccSouth />
+            </ProtectedRoute>
+          }
+        />
 
+        <Route
+          path="/dashboard/maintenance"
+          element={
+            <ProtectedRoute
+              allowedRoles={[
+                USER_ROLES.MAINTENANCE,
+              ]}
+            >
+              <Maintenance />
+            </ProtectedRoute>
+          }
+        />
 
-{/* ================= AUTH ================= */}
+        {/* Drone monitoring */}
+        <Route
+          path="/drone"
+          element={
+            <ProtectedRoute
+              allowedRoles={AUTHORITY_ROLES}
+            >
+              <Drone />
+            </ProtectedRoute>
+          }
+        />
 
+        {/* AI detection */}
+        <Route
+          path="/ai"
+          element={
+            <ProtectedRoute
+              allowedRoles={ALL_ROLES}
+            >
+              <AI />
+            </ProtectedRoute>
+          }
+        />
 
-<Route
-path="/"
-element={<Login />}
-/>
+        {/* Live issue map */}
+        <Route
+          path="/map"
+          element={
+            <ProtectedRoute
+              allowedRoles={ALL_ROLES}
+            >
+              <MapPage />
+            </ProtectedRoute>
+          }
+        />
 
+        {/* Alert monitoring */}
+        <Route
+          path="/alerts"
+          element={
+            <ProtectedRoute
+              allowedRoles={ALL_ROLES}
+            >
+              <Alerts />
+            </ProtectedRoute>
+          }
+        />
 
-<Route
-path="/login"
-element={<Login />}
-/>
+        {/* Team management */}
+        <Route
+          path="/teams"
+          element={
+            <ProtectedRoute
+              allowedRoles={ALL_ROLES}
+            >
+              <Teams />
+            </ProtectedRoute>
+          }
+        />
 
+        {/* Reports */}
+        <Route
+          path="/reports"
+          element={
+            <ProtectedRoute
+              allowedRoles={ALL_ROLES}
+            >
+              <Reports />
+            </ProtectedRoute>
+          }
+        />
 
-<Route
-path="/register"
-element={<Register />}
-/>
+        {/* Portal settings */}
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute
+              allowedRoles={ALL_ROLES}
+            >
+              <Settings />
+            </ProtectedRoute>
+          }
+        />
 
+        {/* Old or incorrect dashboard links */}
+        <Route
+          path="/admin"
+          element={
+            <Navigate
+              to="/dashboard/super-admin"
+              replace
+            />
+          }
+        />
 
+        <Route
+          path="/dncc-north"
+          element={
+            <Navigate
+              to="/dashboard/dncc-north"
+              replace
+            />
+          }
+        />
 
-{/* ================= DASHBOARDS ================= */}
+        <Route
+          path="/dncc-south"
+          element={
+            <Navigate
+              to="/dashboard/dncc-south"
+              replace
+            />
+          }
+        />
 
+        <Route
+          path="/maintenance"
+          element={
+            <Navigate
+              to="/dashboard/maintenance"
+              replace
+            />
+          }
+        />
 
-
-<Route
-path="/dashboard/super-admin"
-element={<Admin />}
-/>
-
-
-
-<Route
-path="/dashboard/dncc"
-element={<Dncc />}
-/>
-
-
-
-<Route
-path="/dashboard/wasa"
-element={<Wasa />}
-/>
-
-
-
-<Route
-path="/dashboard/maintenance"
-element={<Maintenance />}
-/>
-
-
-
-
-{/* ================= SIDEBAR MODULES ================= */}
-
-
-
-<Route
-path="/drone"
-element={<Drone />}
-/>
-
-
-
-<Route
-path="/ai"
-element={<AI />}
-/>
-
-
-
-<Route
-path="/map"
-element={<Map />}
-/>
-
-
-
-<Route
-path="/alerts"
-element={<Alerts />}
-/>
-
-
-
-<Route
-path="/teams"
-element={<Teams />}
-/>
-
-
-
-<Route
-path="/reports"
-element={<Reports />}
-/>
-
-
-
-<Route
-path="/settings"
-element={<Settings />}
-/>
-
-
-
-</Routes>
-
-
-</BrowserRouter>
-
-
-);
-
-
+        {/* Unknown route */}
+        <Route
+          path="*"
+          element={
+            <Navigate to="/login" replace />
+          }
+        />
+      </Routes>
+    </BrowserRouter>
+  );
 }
-
 
 export default App;
